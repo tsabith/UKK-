@@ -5,12 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class RoleSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('roles')->insert([
-            ['name' => 'siswa', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        $this->call(RoleSeeder::class);
     }
 }
