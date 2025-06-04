@@ -9,8 +9,9 @@ class RoleSeeder extends Seeder
 {
 	public function run(): void
 	{
-    	DB::table('roles')->insert([
-        	['name' => 'siswa','guard_name' => 'web', 'created_at' => now(), 'updated_at' => now()],
-    	]);
+    	DB::table('roles')->updateOrInsert(
+        	['name' => 'siswa', 'guard_name' => 'web'],
+        	['created_at' => now(), 'updated_at' => now()]
+    	);
 	}
 }
