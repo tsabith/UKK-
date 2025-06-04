@@ -18,7 +18,7 @@
     </div>
     <div class="bg-white border rounded-xl p-4 shadow-sm flex flex-col">
         <div class="text-xs text-gray-500 mb-1">NIS</div>
-        <div class="font-semibold text-gray-800">{{ auth()->user()->nis }}</div>
+        <div class="font-semibold text-gray-800">{{ auth()->user()->siswa?->nis ?? 'Tidak ada NIS' }}</div>
     </div>
 </div>
 @else
