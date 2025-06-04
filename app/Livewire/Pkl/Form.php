@@ -19,6 +19,20 @@ class Form extends Component
     public $industriList = [];
     public $guruList = [];
     public $userMail;
+    
+    // Add real-time validation for dates
+    public function updatedTanggalMulai($value)
+    {
+        $this->validateOnly('tanggal_mulai');
+        if ($this->tanggal_selesai) {
+            $this->validateOnly('tanggal_selesai');
+        }
+    }
+
+    public function updatedTanggalSelesai($value)
+    {
+        $this->validateOnly('tanggal_selesai');
+    }
 
     public function mount($id = null)
     {
@@ -47,7 +61,27 @@ class Form extends Component
             'industri_id' => 'required|exists:industris,id',
             'guru_id' => 'required|exists:gurus,id',
             'tanggal_mulai' => 'required|date',
-            'tanggal_selesai' => 'required|date|after:tanggal_mulai',
+            'tanggal_selesai' => [
+                'required',
+                'date',
+                'after:tanggal_mulai',
+                function ($attribute, $value, $fail) {
+                    if ($this->tanggal_mulai && $value) {
+                        try {
+                            $start = \Carbon\Carbon::parse($this->tanggal_mulai);
+                            $end = \Carbon\Carbon::parse($value);
+                            $minimumEnd = $start->copy()->addDays(90);
+                            
+                            if ($end->lt($minimumEnd)) {
+                                $remainingDays = $minimumEnd->diffInDays($end);
+                                $fail('Durasi PKL harus minimal 90 hari. Tambahkan ' . $remainingDays . ' hari lagi.');
+                            }
+                        } catch (\Exception $e) {
+                            $fail('Format tanggal tidak valid.');
+                        }
+                    }
+                },
+            ],
         ];
     }
 

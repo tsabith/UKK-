@@ -1,4 +1,4 @@
-<div class="p-4">
+<div class="p-0 -mx-4">
     <h2 class="text-2xl font-semibold mb-6 text-center text-gray-600">
         {{ $id ? 'Edit Laporan' : 'Lapor PKL' }}
     </h2>
@@ -15,52 +15,52 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Nama Siswa -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Nama Siswa</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Nama Siswa</label>
                     <select wire:model="siswa_id" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150">
                         <option value="">Cari nama anda</option>
                         @foreach($siswaList as $siswa)
                             <option value="{{ $siswa->id }}">{{ $siswa->nama }}</option>
                         @endforeach
                     </select>
-                    @error('siswa_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('siswa_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Industri Tujuan -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Industri Tujuan</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Industri Tujuan</label>
                     <select wire:model="industri_id" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150">
                         <option value="">Pilih industri tujuan anda</option>
                         @foreach($industriList as $industri)
                             <option value="{{ $industri->id }}">{{ $industri->nama }}</option>
                         @endforeach
                     </select>
-                    @error('industri_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('industri_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Guru Pembimbing -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Guru Pembimbing</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Guru Pembimbing</label>
                     <select wire:model="guru_id" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150">
                         <option value="">Pilih guru pembimbing yang sesuai</option>
                         @foreach($guruList as $guru)
                             <option value="{{ $guru->id }}">{{ $guru->nama }}</option>
                         @endforeach
                     </select>
-                    @error('guru_id') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('guru_id') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Tanggal Mulai -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Mulai</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal Mulai</label>
                     <input type="date" wire:model="tanggal_mulai" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150">
-                    @error('tanggal_mulai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('tanggal_mulai') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Tanggal Selesai -->
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Selesai</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Tanggal Selesai</label>
                     <input type="date" wire:model="tanggal_selesai" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-gray-500 transition duration-150">
-                    @error('tanggal_selesai') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+                    @error('tanggal_selesai') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
 
