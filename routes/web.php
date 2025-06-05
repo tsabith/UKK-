@@ -17,7 +17,7 @@ Route::view('dashboard', 'dashboard')
     ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+    Route::redirect('settings', 'settings/profile')->name('settings'); // Added name here
 
     Route::get('settings/profile', Profile::class)->name('settings.profile');
     Route::get('settings/password', Password::class)->name('settings.password');
@@ -48,7 +48,7 @@ Route::view('industri', 'industri')
 Route::view('pkl', 'pkl')
     ->middleware(['auth', 'verified'])
     ->name('pkl');
-    
+
 Route::middleware(['auth'])->group(function () {
     // Routes yang lain
     Route::get('/pkl/create', PKLForm::class)->name('pkl.create');

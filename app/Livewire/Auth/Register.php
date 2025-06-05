@@ -4,6 +4,7 @@ namespace App\Livewire\Auth;
 
 use App\Models\User;
 use App\Models\Siswa;
+use App\Models\Guru;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -28,19 +29,20 @@ class Register extends Component
      */
     public function register(): void
     {
-        // Check if email exists in siswa table
+        // Check if email exists in siswa or guru table
         $siswa = Siswa::where('email', $this->email)->first();
+        $guru = Guru::where('email', $this->email)->first();
         
-        if (!$siswa) {
+        if (!$siswa && !$guru) {
             throw ValidationException::withMessages([
-                'email' => __('Email tidak terdaftar di database siswa. Silahkan hubungi administrator.'),
+                'email' => __('Email tidak terdaftar di database siswa atau guru. Silahkan hubungi administrator.'),
             ]);
         }
 
-        // Check if this student already has a user account
-        if ($siswa->user_id !== null) {
+        // Check if this person already has a user account
+        if (($siswa && $siswa->user_id !== null) || ($guru && $guru->user_id !== null)) {
             throw ValidationException::withMessages([
-                'email' => __('Akun untuk siswa ini sudah terdaftar sebelumnya.'),
+                'email' => __('Akun untuk email ini sudah terdaftar sebelumnya.'),
             ]);
         }
 
@@ -52,12 +54,17 @@ class Register extends Component
 
         $validated['password'] = Hash::make($validated['password']);
 
-        // Create user with student role
+        // Create user
         $user = User::create($validated);
-        $user->assignRole('siswa');
-
-        // Link the user to the student record
-        $siswa->update(['user_id' => $user->id]);
+        
+        // Assign role and link the user to the appropriate record
+        if ($siswa) {
+            $user->assignRole('siswa');
+            $siswa->update(['user_id' => $user->id]);
+        } else {
+            $user->assignRole('siswa');
+            $guru->update(['user_id' => $user->id]);
+        }
 
         event(new Registered($user));
 
